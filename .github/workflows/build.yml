@@ -1,4 +1,4 @@
-name: Stravaig PROJECT NAME HERE
+name: Stravaig Clock
 on: 
   push:
     branches: 
@@ -38,9 +38,11 @@ jobs:
     name: Build, Test, and Release
     runs-on: ubuntu-latest
     env:
-      STRAVAIG_SOLUTION: src/XXXX.sln
-      STRAVAIG_TESTS: XXXX.Tests
-      STRAVAIG_PROJECT: XXXX
+      STRAVAIG_SOLUTION: src/Stravaig.Clock.sln
+      STRAVAIG_TESTS: Stravaig.Clock.Tests
+      STRAVAIG_PROJECT1: Stravaig.Clock
+      STRAVAIG_PROJECT2: Stravaig.Clock.DependencyInjection
+      STRAVAIG_PROJECT3: Stravaig.Clock.Testing 
     
     steps:
       - name: Check out code
@@ -56,7 +58,9 @@ jobs:
         run: |
           echo "GITHUB_SHA: $GITHUB_SHA" 
           echo "Solution: $STRAVAIG_SOLUTION"
-          echo "Project: $STRAVAIG_PROJECT"
+          echo "Project: $STRAVAIG_PROJECT1"
+          echo "Project: $STRAVAIG_PROJECT2"
+          echo "Project: $STRAVAIG_PROJECT3"
           echo "Tests: $STRAVAIG_TESTS"
           echo "Package version: $STRAVAIG_PACKAGE_VERSION"
           echo "Version Suffix: $STRAVAIG_PACKAGE_VERSION_SUFFIX"
@@ -83,11 +87,17 @@ jobs:
        
       - name: Package Preview Release
         if: ${{ env.STRAVAIG_IS_PREVIEW == 'true' }}
-        run: dotnet pack ./src/$STRAVAIG_PROJECT/$STRAVAIG_PROJECT.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+        run: |
+          dotnet pack ./src/$STRAVAIG_PROJECT1/$STRAVAIG_PROJECT1.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+          dotnet pack ./src/$STRAVAIG_PROJECT2/$STRAVAIG_PROJECT2.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+          dotnet pack ./src/$STRAVAIG_PROJECT3/$STRAVAIG_PROJECT3.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
        
       - name: Package Stable Release
         if: ${{ env.STRAVAIG_IS_STABLE == 'true' }}
-        run: dotnet pack ./src/$STRAVAIG_PROJECT/$STRAVAIG_PROJECT.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+        run: |
+          dotnet pack ./src/$STRAVAIG_PROJECT1/$STRAVAIG_PROJECT1.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+          dotnet pack ./src/$STRAVAIG_PROJECT2/$STRAVAIG_PROJECT2.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+          dotnet pack ./src/$STRAVAIG_PROJECT3/$STRAVAIG_PROJECT3.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
       - name: Push package to NuGet
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
