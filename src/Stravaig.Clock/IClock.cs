@@ -18,7 +18,7 @@ public interface IClock
     /// computer, expressed as the Coordinated Universal Time (UTC).
     /// </summary>
     DateTime UtcNow { get; }
-    
+
     /// <summary>
     /// Gets the current date, with the time component set to 00:00:00.
     /// </summary>

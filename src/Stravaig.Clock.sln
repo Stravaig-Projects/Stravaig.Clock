@@ -34,6 +34,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Clock.Testing", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Clock.Tests", "Stravaig.Clock.Tests\Stravaig.Clock.Tests.csproj", "{A595F4C7-5AA9-4268-A1DB-9BC67F26E2FB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__Style", "__Style", "{9A7A82FB-082B-43F9-B843-4C3C44E461AF}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		.editorconfig = .editorconfig
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
