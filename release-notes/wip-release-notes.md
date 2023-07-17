@@ -4,10 +4,21 @@
 
 Date: ???
 
-### Initial Release
+### Bugs
 
-* IClock interface
-* Regular Clock + Dependency Injection extensions
-* Fake Clock for testing with a fixed `DateTime`
+### Features
+
+### Miscellaneous
+
+### Dependent Packages
+
+- .NET 5.0
+  - No changes
+- .NET Core 3.1
+  - No changes
+- General
+  - No changes
+
+---
 
 

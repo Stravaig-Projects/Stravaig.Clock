@@ -1,4 +1,4 @@
-# Full Release Notes
+# Release Notes
 
 ## Version 0.1.0
 
@@ -9,6 +9,5 @@ Date: Monday, 17 July, 2023 at 11:54:43 +00:00
 * IClock interface
 * Regular Clock + Dependency Injection extensions
 * Fake Clock for testing with a fixed `DateTime`
-
 
 
