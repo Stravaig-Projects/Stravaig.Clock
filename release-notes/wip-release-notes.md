@@ -4,13 +4,10 @@
 
 Date: ???
 
-### Bugs
+### Initial Release
 
-### Features
-
-### Miscellaneous
-
-### Dependabot
-
+* IClock interface
+* Regular Clock + Dependency Injection extensions
+* Fake Clock for testing with a fixed `DateTime`
 
 

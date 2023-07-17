@@ -14,7 +14,7 @@ public class ClockTests : IDisposable
         // savings time so the offset will be consistent year round.
         _testTimeZone = FakeLocalTimeZone.Set("Africa/Johannesburg");
     }
-   
+
     public void Dispose()
     {
         _testTimeZone.Dispose();
@@ -27,7 +27,7 @@ public class ClockTests : IDisposable
         var start = DateTime.Now;
         var testTime = Clock.Instance.LocalNow;
         var end = DateTime.Now;
-        
+
         Console.WriteLine($"Test time is {testTime:O}");
         testTime.Kind.ShouldBe(DateTimeKind.Local);
         testTime.ShouldBeGreaterThanOrEqualTo(start);
@@ -46,7 +46,7 @@ public class ClockTests : IDisposable
         testTime.ShouldBeGreaterThanOrEqualTo(start);
         testTime.ShouldBeLessThanOrEqualTo(end);
     }
-    
+
     [Test]
     public void TodayIsTodayLocally()
     {

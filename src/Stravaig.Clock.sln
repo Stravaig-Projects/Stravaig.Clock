@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__BuildAndDeploy", "__Build
 		..\Reset-WipReleaseNotes.ps1 = ..\Reset-WipReleaseNotes.ps1
 		..\Set-Version.ps1 = ..\Set-Version.ps1
 		..\version.txt = ..\version.txt
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__Documentation", "__Documentation", "{61C05782-A253-4EDD-9463-04912EB73870}"
@@ -36,7 +37,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Clock.Tests", "Str
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__Style", "__Style", "{9A7A82FB-082B-43F9-B843-4C3C44E461AF}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
 		.editorconfig = .editorconfig
 		stylecop.json = stylecop.json
 	EndProjectSection
