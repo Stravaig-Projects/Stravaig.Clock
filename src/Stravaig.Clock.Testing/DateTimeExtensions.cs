@@ -4,8 +4,18 @@ using System.Text;
 
 namespace Stravaig.Clock.Testing;
 
+/// <summary>
+/// Extensions for the checking the time during the test.
+/// </summary>
 public static class DateTimeExtensions
 {
+    /// <summary>
+    /// Checks that the actual time given is within the bounds of the test.
+    /// </summary>
+    /// <param name="actual">The actual time to check.</param>
+    /// <param name="expected">The test clock that holds the bounds of the test.</param>
+    /// <param name="assumedKindIfUnspecified">The kind of time (Local or UTC) that should be assumed if actual is unspecified.</param>
+    /// <param name="argExpr">The caller argument expression. The compiler will populate this value.</param>
     public static void ShouldBeDuringTest(
         this DateTime actual,
         TestClock expected,
@@ -67,7 +77,6 @@ public static class DateTimeExtensions
         sb.Append(actual.ToString("O"));
         return sb.ToString();
     }
-
 
     private static void ThrowIfUnspecified(DateTime actual, DateTimeKind assumed, string? argExpr)
     {
