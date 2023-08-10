@@ -14,8 +14,14 @@ public class TestClock
         StartTime = DateTime.UtcNow;
     }
 
+    /// <summary>
+    /// The start time of the clock.
+    /// </summary>
     internal DateTime StartTime { get; }
 
+    /// <summary>
+    /// The end time of the clock. If Stop() has not been called this will be the current time.
+    /// </summary>
     internal DateTime EndTime => _end ?? DateTime.UtcNow;
 
     /// <summary>
