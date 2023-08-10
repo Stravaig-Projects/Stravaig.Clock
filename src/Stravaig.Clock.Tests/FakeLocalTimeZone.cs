@@ -34,5 +34,4 @@ public class FakeLocalTimeZone : IDisposable
         Console.WriteLine($"Setting Timezone to {timeZoneInfo.DisplayName}.");
         typeof(TimeZoneInfo).AsDynamicType().s_cachedData._localTimeZone = timeZoneInfo;
     }
-
 }

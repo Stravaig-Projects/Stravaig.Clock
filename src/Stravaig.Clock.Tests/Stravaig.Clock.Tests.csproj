@@ -20,7 +20,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Stravaig.Clock.Testing\Stravaig.Clock.Testing.csproj" />
       <ProjectReference Include="..\Stravaig.Clock\Stravaig.Clock.csproj" />
     </ItemGroup>
+
+
 
 </Project>
