@@ -1,84 +1,62 @@
-# stravaig-template
+# Stravaig Clock
 
-## TO DO
+A set of packages to assist with automated tests when the current time is required in code.
 
-First install the githooks, ensure powershell 7.x is installed and then run `Install-GitHooks.ps1` (PowerShell 7.2 won't work Windows https://github.com/PowerShell/PowerShell/issues/16480). Any work perfomed in feature branches must have a related _issue_ associated with them. The branch name will have to be prefixed with the issue number, followed by a slash then the branch name. (e.g. `#123/my-feature-branch`)
+For full documentation see: https://stravaig-projects.github.io/Stravaig.Clock/
 
-* Configure the repository
-  * Give this repo access to the deployment secrets. Organisation --> Settings --> Secrets and variables --> Actions
-  * Set up GitHub Pages: Repository --> Settings --> Pages
+## Quick Start
 
-The following then needs to be updated:
+* In your application inject an `IClock` where needed.
+* Add the `IClock` to your service collection.
+* In your tests replace the clock with a `FakeClock`, and then assert that the date emitted by the FakeClock is the one used.
 
-* Rename files:
-  * Rename file `/src/Stravaig.XXXX.sln` (XXXX = name of the solution within the `Stravaig` namespace)
-  * Rename file `/src/Stravaig.XXXX.sln.DotSettings` (XXXX = name of the solution within the `Stravaig` namespace)
-  * Rename folder `/src/.idea/.idea.XXXX` (XXXX = name of solution without the file extension)
-* Add project files
-  * Add the initial main project that will be packaged and tests to the solution.
-  * Move the `/src/stravaig-icon.png` file into the package project folder.
-  * Update the main project `.csproj` file with the details in the "package details" (below)
-* Update the `.github/workflows/build.yml` file with
-  * The name of the project (line 1)
-  * The environment variables in `jobs` \ `build` \ `env` to point to the new solution project and tests
-* Update the `.github/workflows/gh-pages.yml` file with:
-  *   
-* Update the `.devcontainer.json` file:
-  * `name` should reflect the name of the docs
-  * `portAttributes` should be set to a non-conflicting port and the label should reflect the repo.
-  * `remoteEnv` should mirror the port set earlier, and the repo name should be updated.
+```csharp
+public class MyService
+{
+  private readonly IClock _clock;
+  public MyService(IClock clock)
+  {
+    _clock = clock;
+  }
 
-## Package Details
-
-This should be added to the main `.csproj` file:
-
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <StravaigBuildTime>$([System.DateTime]::Now.ToString("dddd, d MMMM yyyy 'at' HH:mm:ss zzzz"))</StravaigBuildTime>
-    <StravaigCopyrightYear>$([System.DateTime]::Now.ToString("yyyy"))</StravaigCopyrightYear>
-    <StravaigGitHubCommit>$(GITHUB_SHA)</StravaigGitHubCommit>
-    <StravaigWorkflowUrl>$(GITHUB_SERVER_URL)/$(GITHUB_REPOSITORY)/actions/runs/$(GITHUB_RUN_ID)</StravaigWorkflowUrl>
-    <StravaigReleaseNotes>https://github.com/$(GITHUB_REPOSITORY)/releases/tag/$(STRAVAIG_RELEASE_TAG)</StravaigReleaseNotes>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
-    <Title>Stravaig XXXX</Title>
-    <Authors>Colin Angus Mackay</Authors>
-    <Copyright>©$(StravaigCopyrightYear) Stravaig Projects. See licence for more information.</Copyright>
-    <PackageProjectUrl>https://github.com/$(GITHUB_REPOSITORY)/blob/$(StravaigGitHubCommit)/README.md</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/$(GITHUB_REPOSITORY)</RepositoryUrl>
-    <PackageIcon>stravaig-icon.png</PackageIcon>
-    <PackageTags>XXXX</PackageTags>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>XXXX.
-
-    Built on $(StravaigBuildTime).
-    Build run details at: $(StravaigWorkflowUrl)
-    Release notes at: $(StravaigReleaseNotes)
-    </Description>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <LangVersion>11</LangVersion>
-  </PropertyGroup>
-
-    <ItemGroup>
-        <None Include="stravaig-icon.png" Pack="true" PackagePath="/" />
-    </ItemGroup>
-
-    <!-- Other things here -->
-</Project>
+  public Thing CreateTheThing()
+  {
+    return new Thing()
+    {
+      DateCreatedAt = _clock.UtcNow;
+    }
+  }
+}
 ```
 
-Any part with `XXXX` should be replaced with appropriate information.
+And in the test:
 
----
+```csharp
+[TestFixture]
+public class MyServiceTests
+{
+  [Test]
+  public void ThingIsCreatedAtTheAppropriateTime()
+  {
+    var testTime = new DateTime(2023, 8, 12, 16, 16, 0, DateTimeKind.Utc);
+    var fakeClock = FakeClock.SetTo(testTime);
+    var service = new MyService(fakeClock);
 
-## Contributing / Getting Started
+    var thing = service.CreateTheThing();
 
-* Ensure you have PowerShell 7.1.x or higher installed
-* At a PowerShell prompt
-    * Navigate to the root of this repository
-    * Run `./Install-GitHooks.ps1`
+    thing.DateCreatedAt.ShouldBe(testTime);
+  }
+}
+```
+
+## Packages
+
+
+* Stable releases:
+  * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Clock?color=004880&label=nuget%20stable&logo=nuget) View [Stravaig.Clock](https://www.nuget.org/packages/Stravaig.Clock) on Nuget
+  * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Clock.Testing?color=004880&label=nuget%20stable&logo=nuget) View [Stravaig.Clock.Testing](https://www.nuget.org/packages/Stravaig.Clock.Testing) on Nuget
+  * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Clock.DependencyInjection?color=004880&label=nuget%20stable&logo=nuget) View [Stravaig.Clock.DependencyInjection](https://www.nuget.org/packages/Stravaig.Clock.DependencyInjection) on Nuget
+* Latest releases:
+  * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Clock?color=ffffff&label=nuget%20latest&logo=nuget) View [Stravaig.Clock](https://www.nuget.org/packages/Stravaig.Clock) on Nuget
+  * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Clock.Testing?color=ffffff&label=nuget%20latest&logo=nuget) View [Stravaig.Clock.Testing](https://www.nuget.org/packages/Stravaig.Clock.Testing) on Nuget
+  * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Clock.DependencyInjection?color=ffffff&label=nuget%20latest&logo=nuget) View [Stravaig.Clock.DependencyInjection](https://www.nuget.org/packages/Stravaig.Clock.DependencyInjection) on Nuget

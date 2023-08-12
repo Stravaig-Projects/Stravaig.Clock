@@ -10,6 +10,8 @@ Date: ???
 
 ### Miscellaneous
 
+- #6: Create initial set of docs.
+
 ### Dependent Packages
 
 - .NET 5.0
