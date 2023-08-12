@@ -7,8 +7,8 @@ exclude:
   - scripts
 
 # UPDATE ME IN A NEW REPOSITORY
-title: Stravaig Template
-description: The Stravaig Template
+title: Stravaig Clock
+description: An injectable and testable clock.
 
 kramdown:
     highlighter: rouge
@@ -18,11 +18,11 @@ kramdown:
 
 # UPDATE ME IN A NEW REPOSITORY
 github:
-  repository_url: https://github.com/Stravaig-Projects/stravaig-template
+  repository_url: https://github.com/Stravaig-Projects/Stravaig.Clock
 
 # UPDATE ME IN A NEW REPOSITORY
 nuget:
   urls:
-    - https://www.nuget.org/packages/Stravaig.Package1
-    - https://www.nuget.org/packages/Stravaig.Package2
-    - https://www.nuget.org/packages/Stravaig.Package3.etc
+    - https://www.nuget.org/packages/Stravaig.Clock
+    - https://www.nuget.org/packages/Stravaig.Clock.Testing
+    - https://www.nuget.org/packages/Stravaig.Clock.DependencyInjection

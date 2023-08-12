@@ -6,6 +6,10 @@
 # Mac files
 .DS_Store
 
+# docs
+docs/_site/
+docs/Gemfile.lock
+docs/release-notes/
 docs/build/
 docs/source/_build
 
