@@ -6,7 +6,7 @@ title: Asserting with the Test Clock - Stravaig.Clock documentation
 
 If your code is not in a state where you can easily inject an `IClock` (see: [Using the injectable clock](using-the-injectable-clock.md)) you may find that the `DateTime` extention methiod `ShouldBeDuringTest(...)` is _good enough_ to assert that a `DateTime` object represents a time during the test run.
 
-To use this technique, you must first add the (Stravaig.Clock.Testing)[https://www.nuget.org/packages/Stravaig.Clock.Testing] nuget package to your test project. Then you need to set up a `TestClock` during the "arrange" phase of the test, and then assert the relevant `DateTime` objects during the "assert" stage of the test.
+To use this technique, you must first add the [Stravaig.Clock.Testing](https://www.nuget.org/packages/Stravaig.Clock.Testing) nuget package to your test project. Then you need to set up a `TestClock` during the "arrange" phase of the test, and then assert the relevant `DateTime` objects during the "assert" stage of the test.
 
 e.g.
 
